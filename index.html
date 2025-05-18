@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Satu Hati yang Terluka</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <canvas id="snow"></canvas>
+  <div class="rain"></div>
+  <div class="container">
+    <h1>Satu Hati yang Terluka</h1>
+    <p class="intro">Ini adalah kisah tentang dua orang—satu mencintai sepenuh hati, satu lagi hanya setengah hadir.</p>
+
+    <div class="story">
+      <p>Dia memperjuangkan segalanya. Setiap pesan, setiap perhatian, semuanya tulus dari hati.</p>
+      <p>Namun yang dia cintai, tak pernah benar-benar membalas. Senyumannya palsu, kata-katanya dingin.</p>
+      <p>Hari demi hari, hubungan itu menjadi medan luka. Komunikasi jadi perdebatan. Rasa rindu jadi beban.</p>
+      <p>Sampai akhirnya, yang mencintai menyerah. Cinta tak bisa hidup sendirian.</p>
+    </div>
+
+    <div class="heart-break"></div>
+
+    <p class="ending">Hubungan itu berakhir. Bukan karena tak ada cinta, tapi karena cinta itu sendirian.</p>
+  </div>
+
+  <script>
+    const canvas = document.getElementById("snow");
+    const ctx = canvas.getContext("2d");
+
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+    canvas.width = width;
+    canvas.height = height;
+
+    let particles = [];
+
+    for (let i = 0; i < 100; i++) {
+      particles.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        r: Math.random() * 4 + 1,
+        d: Math.random() * 50,
+        l: Math.random() * 1 + 0.5,
+      });
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, width, height);
+      ctx.fillStyle = "rgba(255, 182, 193, 0.8)";
+      ctx.beginPath();
+      for (let i = 0; i < particles.length; i++) {
+        let p = particles[i];
+        ctx.moveTo(p.x, p.y);
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2, true);
+      }
+      ctx.fill();
+      update();
+    }
+
+    function update() {
+      for (let i = 0; i < particles.length; i++) {
+        let p = particles[i];
+        p.y += p.l;
+        if (p.y > height) {
+          p.y = 0;
+          p.x = Math.random() * width;
+        }
+      }
+    }
+
+    setInterval(draw, 33);
+
+    window.addEventListener("resize", () => {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width;
+      canvas.height = height;
+    });
+  </script>
+</body>
+</html>
